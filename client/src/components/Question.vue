@@ -31,18 +31,35 @@
 </template>
 
 <script>
-
+import axios from 'axios'
 export default {
   name: 'Question',
   data () {
     return {
-      questionData: ''
+      questionData: []
     }
+  },
+  created: function () {
+    this.showQuestion()
   },
   computed: {
     questions: function () {
-      console.log('homeee this store', this.$store.getters.getQuestion)
+      console.log('question comp frm this store', this.$store.getters)
       return this.$store.getters.getQuestion
+    }
+  },
+  methods: {
+    showQuestion: function () {
+      let self = this
+      axios({
+        method: 'get',
+        url: `http://localhost:3000/question`
+      }).then(function (response) {
+        console.log('respon get article', (response.data.listArticle))
+        self.articles = response.data.listArticle
+      }).catch(function (err) {
+        console.log(err)
+      })
     }
   }
 }
