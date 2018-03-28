@@ -1,33 +1,23 @@
 <template>
   <div class="card offset-md-4">
-    {{questions}}
-    <div v-for="(data,i) in questions" :key="i" v-if="data.id == $route.params.id">
+    <div v-for="(data,i) in questions" :key="i" v-if="data._id == $route.params.id">
       <h5 class="card-header">{{data.title}}</h5>
       <div class="card-body">
         <p class="card-text">{{data.description}}.</p>
       </div>
       <div class="card-footer text-muted">
-          asked by: {{data.username}}
+          asked by: {{data.userId.name}}
       </div>
-      <div>
+    </div>
+    <div class="container">
         <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <label for="exampleFormControlTextarea1">Post An Answer</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
       </div>
-    </div>
   </div>
 </template>
 

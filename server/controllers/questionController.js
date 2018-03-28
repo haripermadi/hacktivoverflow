@@ -25,7 +25,7 @@ module.exports = {
     let input = {
       title: req.body.title,
       description: req.body.description,
-      userId: req.headers.userid
+      userId: req.body.userid
     }
     let question = new Question (input)
     question.save().then(data=>{

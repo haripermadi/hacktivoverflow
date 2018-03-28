@@ -18,20 +18,35 @@ export const store = new Vuex.Store({
   mutations: {
     showQuestion (state, payload) {
       state.questions = payload
+    },
+    postQuestion (state, payload) {
+      state.questions.push(payload)
     }
   },
   actions: {
-    showQuestion ({commit}, payload) {
+    showQuestion (contex, payload) {
       console.log('masuk show quest store')
-      // axios({
-      //   method: 'get',
-      //   url: 'http://localhost:3000/question'
-      // }).then(function (response) {
-      //   console.log('res quest', response.data)
-      //   contex.commit('showQuestion', response.data.data)
-      // })
-      axios.get('http://localhost:3000/question').then(response => {
-        commit('showQuestion', response.data.data)
+      axios({
+        method: 'get',
+        url: 'http://localhost:3000/question'
+      }).then(function (response) {
+        console.log('res quest', response.data)
+        contex.commit('showQuestion', response.data.data)
+      })
+    },
+    postQuestion (contex, payload) {
+      axios({
+        method: 'post',
+        url: 'http://localhost:3000/question',
+        data: {
+          title: payload.title,
+          description: payload.description,
+          userId: payload.userId
+        }
+      }).then(response => {
+        contex.commit('postQuestion', response)
+      }).catch(err => {
+        console.log(err)
       })
     }
   }
