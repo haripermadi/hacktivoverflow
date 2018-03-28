@@ -20,9 +20,12 @@
 <script>
 export default {
   name: 'Home',
+  created: function () {
+    this.$store.dispatch('showQuestion')
+  },
   computed: {
-    questions: function () {
-      console.log('homeee this store', this.$store.getters.getQuestion)
+    questions () {
+      console.log('question comp frm this store', this.$store.getters)
       return this.$store.getters.getQuestion
     }
   }

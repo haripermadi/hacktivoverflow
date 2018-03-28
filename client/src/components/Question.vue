@@ -1,5 +1,6 @@
 <template>
   <div class="card offset-md-4">
+    {{questions}}
     <div v-for="(data,i) in questions" :key="i" v-if="data.id == $route.params.id">
       <h5 class="card-header">{{data.title}}</h5>
       <div class="card-body">
@@ -31,7 +32,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   name: 'Question',
   data () {
@@ -40,26 +40,12 @@ export default {
     }
   },
   created: function () {
-    this.showQuestion()
+    this.$store.dispatch('showQuestion')
   },
   computed: {
-    questions: function () {
+    questions () {
       console.log('question comp frm this store', this.$store.getters)
       return this.$store.getters.getQuestion
-    }
-  },
-  methods: {
-    showQuestion: function () {
-      let self = this
-      axios({
-        method: 'get',
-        url: `http://localhost:3000/question`
-      }).then(function (response) {
-        console.log('respon get article', (response.data.listArticle))
-        self.articles = response.data.listArticle
-      }).catch(function (err) {
-        console.log(err)
-      })
     }
   }
 }

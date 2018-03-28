@@ -4,32 +4,34 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   state: {
-    questions: '',
-    test: 'halooo'
+    questions: [],
+    answer: []
   },
   getters: {
-    getQuestion: function (state) {
+    getQuestion (state) {
       console.log('ini store get question', state)
       return state.questions
     }
   },
   mutations: {
-    getQuestion: function (state, payload) {
+    showQuestion (state, payload) {
       state.questions = payload
     }
   },
   actions: {
-    getQuestion: function (contex, payload) {
-      axios({
-        method: 'get',
-        url: 'http://localhost:3000/question'
-      }).then(function (response) {
-        console.log('res quest', response.data)
-        contex.commit('getQuestion', response.data)
-      }).catch(function (err) {
-        console.log(err)
+    showQuestion ({commit}, payload) {
+      console.log('masuk show quest store')
+      // axios({
+      //   method: 'get',
+      //   url: 'http://localhost:3000/question'
+      // }).then(function (response) {
+      //   console.log('res quest', response.data)
+      //   contex.commit('showQuestion', response.data.data)
+      // })
+      axios.get('http://localhost:3000/question').then(response => {
+        commit('showQuestion', response.data.data)
       })
     }
   }
